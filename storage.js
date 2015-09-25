@@ -50,8 +50,8 @@
     'use strict';
 
     var slice = [].slice
-      , localStorage = global.localStorage
-      , sessionStorage = global.sessionStorage
+      , localStorage = global.localStorage || {}
+      , sessionStorage = global.sessionStorage || {}
       , decodeJSON = JSON.parse
       , encodeJSON = JSON.stringify
 
@@ -456,18 +456,18 @@
             })(),
             'local': {
                 load: function(name) {
-                    return localStorage['storage.' + name] ? decodeJSON(localStorage['storage.' + name]) : {};
+                    return localStorage['storage/' + name] ? decodeJSON(localStorage['storage/' + name]) : {};
                 },
                 store: function(name, data) {
-                    localStorage['storage.' + name] = encodeJSON(data);
+                    localStorage['storage/' + name] = encodeJSON(data);
                 }
             },
             'session': {
                 load: function(name) {
-                    return sessionStorage['storage.' + name] ? decodeJSON(sessionStorage['storage.' + name]) : {};
+                    return sessionStorage['storage/' + name] ? decodeJSON(sessionStorage['storage/' + name]) : {};
                 },
                 store: function(name, data) {
-                    sessionStorage['storage.' + name] = encodeJSON(data);
+                    sessionStorage['storage/' + name] = encodeJSON(data);
                 }
             }
         }
